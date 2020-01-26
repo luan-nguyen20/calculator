@@ -1,3 +1,11 @@
+const input = document.querySelector('input');
+
+function clear(){
+    input.value = '';
+}
+
+window.onload = clear;
+
 function add(a,b){return a+b;}
 
 function subtract(a,b){return a-b;}
@@ -23,3 +31,11 @@ function operate(operator,num1,num2){
         default:break;
     }
 }
+
+function appendBtnInput(event){
+    input.value += event.target.value;
+}
+
+const numBtns = Array.from(document.querySelectorAll('.numBtn'));
+numBtns.forEach(numBtn => numBtn.addEventListener('click',appendBtnInput));
+
