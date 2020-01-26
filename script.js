@@ -46,3 +46,8 @@ function appendBtnInput(event){input.value += event.target.value;}
 numBtns.forEach(numBtn => numBtn.addEventListener('click',appendBtnInput));
 //event listener for number buttons to change input display
 
+const clearBtn = document.querySelector('.clearBtn');
+
+//event listener for AC button
+clearBtn.addEventListener('click',clear);
+
