@@ -49,3 +49,5 @@ const clearBtn = document.querySelector('.clearBtn');
 //event listener for AC button
 clearBtn.addEventListener('click',clear);
 
+const opBtns = Array.from(document.querySelectorAll('.operatorBtn'));
+
