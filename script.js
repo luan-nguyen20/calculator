@@ -59,6 +59,9 @@ function isResult(){return (result != null && result != '');}
 //check if decimal point already exists in a string
 function isDecimalPoint(str){return (str.indexOf('.') !== -1);}
 
+//func to clear the input display
+function clearDisplay(){input.value = '';}
+
 //func to append to display when num btn or decimal btn clicked
 function appendBtnInput(event){
     //if result has a value, start new calculation by calling clear()
@@ -80,30 +83,32 @@ const numBtns = Array.from(document.querySelectorAll('.numBtn'));
 //event listener for number buttons
 numBtns.forEach(numBtn => numBtn.addEventListener('click',appendBtnInput));
 
-//func to store firstOperand and clear display
+//func to store firstOperand
 function storeNum1(){
     firstOperand = input.value;
-    input.value = '';
     console.log('firstOperand: ' + firstOperand);
 }
 
-//func to store secondOperand and clear display
+//func to store secondOperand
 function storeNum2(){
     secondOperand = input.value;
-    input.value = '';
     console.log('secondOperand: ' + secondOperand);
 }
 
 //func to store operator
-function storeOperator(event){operator = event.target.value;}
+function storeOperator(event){
+    operator = event.target.value;
+    console.log('operator: ' + operator);
+}
 
 const opBtns = Array.from(document.querySelectorAll('.operatorBtn'));
 
 //event listeners for operation buttons
 opBtns.forEach(opBtn => opBtn.addEventListener('click',storeNum1));
 opBtns.forEach(opBtn => opBtn.addEventListener('click',storeOperator));
+opBtns.forEach(opBtn => opBtn.addEventListener('click',clearDisplay));
 
-function displayResult(){
+function calcAndDisplayResult(){
     if(!operator || !firstOperand || !secondOperand){
         console.log('Missing operator or an operand');
         console.log(operator + ' ' + firstOperand + ' '+ secondOperand);
@@ -121,5 +126,5 @@ const equalBtn = document.querySelector('#equalBtn');
 
 //event listener for equal btn
 equalBtn.addEventListener('click',storeNum2);
-equalBtn.addEventListener('click',displayResult);
+equalBtn.addEventListener('click',calcAndDisplayResult);
 
