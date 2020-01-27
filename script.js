@@ -1,9 +1,7 @@
 const input = document.querySelector('input');
 
 //clear func**********************************************
-function clear(){
-    input.value = '';
-}
+function clear(){input.value = '';}
 //clear func**********************************************
 
 //call clear func on load
