@@ -60,9 +60,12 @@ let resultStack = new Stack(); // stack to store results
 let operatorQueue = new Queue(); // queue to store operators
 const input = document.querySelector('input');
 
+//func to clear display ONLY
+function clearDisplay(){input.value = '';}
+
 //clear func clears everything
 function clear(){
-    input.value = '';
+    clearDisplay();
     while(!resultStack.isEmpty()) {resultStack.pop();}
     while(!operatorQueue.isEmpty()) {operatorQueue.remove();}
 }
@@ -103,7 +106,7 @@ numBtns.forEach(numBtn => numBtn.addEventListener('click',appendToDisplay));
 
 //func to delete last input entry
 function back(){
-    if(input.value !== ''){ //if input is not blank
+    if(!displayIsEmpty()){ //if display is not empty
         input.value = input.value.substring(0,input.value.length-1);
     }
 }
@@ -140,45 +143,55 @@ function multiply(a,b){return a*b;}
 function divide(a,b){return b === 0 ? 'DIVIDE BY 0 !?' : a/b;}
 //*************************************************************
 
-//func to clear display ONLY
-function clearDisplay(){input.value = '';}
-
 //func to show a value in display screen
 function display(displayValue){input.value = displayValue;}
+
+//func to check if display is empty
+function displayIsEmpty(){return input.value === '';}
 
 let leftOperand;
 
 function addBtnClicked(){
     operatorQueue.insert('+'); //insert + to operator queue
 
-    if(resultStack.isEmpty() && input.value !== ''){ 
-        //if result stack and display are empty
+    if(resultStack.isEmpty()){ 
+        if(!displayIsEmpty()){ 
+        //if result stack is empty and display is not empty
         //push input on result stack and clear display
         resultStack.push(Number(input.value));
         clearDisplay();
+        }
     }
     else{
-        if(input.value !== ''){ //if result stack is empty but display is not,
+        if(!displayIsEmpty()){ //if both result stack and display are not empty,
             //assign top of result stack to left operand
             leftOperand = resultStack.pop(); 
-            //calc and push result to top of result stack
+            //do calc with top of result stack and input, 
+            //then push result to top of result stack
             resultStack.push(add(leftOperand,Number(input.value)));
             //display latest result
             display(resultStack.peek().toString());
             //remove operator from queue
             operatorQueue.remove();
         }
-        else { //if both result stack and display are not empty
+        else { //if result stack is not empty and display is empty
             //insert operator in operator queue
             operatorQueue.insert('+');
         }
     }
 }
 
+//addBtn event listener
 const addBtn = document.querySelector('#addBtn');
 addBtn.addEventListener('click',addBtnClicked);
 
+function equalBtnClicked(){
 
+}
+
+//equalBtn event listener
+const equalBtn = document.querySelector('#equalBtn');
+equalBtn.addEventListener('click',equalBtnClicked);
 
 
 
