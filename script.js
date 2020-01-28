@@ -90,8 +90,20 @@ function appendToDisplay(event){
 //*************************************************************
 
 //numBtns event listener
-const numBtns = document.querySelector('.numBtn');
+const numBtns = Array.from(document.querySelectorAll('.numBtn'));
 numBtns.forEach(numBtn => numBtn.addEventListener('click',appendToDisplay));
+
+//func to delete last input entry
+function back(){
+    if(input.value !== ''){ //if input is not blank
+        input.value = input.value.substring(0,input.value.length-1);
+    }
+}
+//*************************************************************
+
+//backBtn event listener
+const backBtn = document.querySelector('#backBtn');
+backBtn.addEventListener('click',back);
 
 
 
