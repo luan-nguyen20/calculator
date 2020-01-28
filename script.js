@@ -1,5 +1,3 @@
-let leftOperand;
-
 //this Stack class uses an array to implement a stack
 class Stack{
     constructor(){
@@ -57,6 +55,44 @@ class Queue{
     }
 }
 //***************************************************************
+
+let leftOperand;
+let resultStack = new Stack(); // stack to store results
+let operatorQueue = new Queue(); // queue to store operators
+const input = document.querySelector('input');
+
+//clear func clears everything
+function clear(){
+    input.value = '';
+    while(!resultStack.isEmpty()) {resultStack.pop();}
+    while(!operatorQueue.isEmpty()) {operatorQueue.remove();}
+}
+//*************************************************************
+
+//clearBtn event listener
+const clearBtn = document.querySelector('#clearBtn');
+clearBtn.addEventListener('click',clear);
+
+//func to add numbers and decimal points to display
+function appendToDisplay(event){
+    if(event.target.id==='decBtn'){ //add dec point only if
+        if(input.value.indexOf('.') === -1){ //dec point doesn't exist
+            input.value += event.target.value;
+        }
+    }
+    else if(event.target.id==='btn0'){ //skip leading zeroes if display is empty
+        if(input.value !== '') {input.value += event.target.value;}
+    }
+    else{
+        input.value += event.target.value;
+    }
+}
+//*************************************************************
+
+//numBtns event listener
+const numBtns = document.querySelector('.numBtn');
+numBtns.forEach(numBtn => numBtn.addEventListener('click',appendToDisplay));
+
 
 
 
