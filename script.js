@@ -105,6 +105,23 @@ function back(){
 const backBtn = document.querySelector('#backBtn');
 backBtn.addEventListener('click',back);
 
+//func to change between negative and positive
+function changeSign(){
+    //if charAt index 0 is not - , add - to front
+    //else, remove -
+    if(input.value[0] !== '-'){
+        input.value = '-' + input.value;
+    }
+    else{
+        input.value = input.value.substring(1,input.value.length);
+    }
+}
+//*************************************************************
+
+//changeSignBtn event listener
+const changeSignBtn = document.querySelector('#changeSignBtn');
+changeSignBtn.addEventListener('click',changeSign);
+
 
 
 
