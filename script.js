@@ -19,7 +19,7 @@ function displayIsEmpty(){return inputDisplay.value === '';}
 function resultStrIsEmpty(){return resultStr === '';}
 
 //func to show result in result display
-function displayResult(){resultDisplay.textContent = 'Result: ' + resultStr;}
+function displayResult(){resultDisplay.textContent = 'Result: ' + String(resultStr);}
 
 //clear func clears everything
 function clear(){
@@ -134,6 +134,13 @@ opBtns.forEach(opBtn => opBtn.addEventListener('click',operatorBtnClicked));
 
 //function for equal button
 function equalBtnClicked(){
+    //add input display content to result str
+    resultStr += inputDisplay.value;
+    //eval resultStr and assign to resultStr
+    resultStr = String(eval(resultStr));
+    //display result and clear input display
+    displayResult();
+    clearInputDisplay();
 }
 
 //equalBtn event listener
