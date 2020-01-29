@@ -2,6 +2,7 @@ let resultStr = ''; //str to store math expression
 const inputDisplay = document.querySelector('input');
 const resultDisplay = document.querySelector('#resultTxt');
 const numOnlyRegEx = /^\d+$/;
+let inputMaxLength = 10;
 
 //func to clear input display ONLY
 function clearInputDisplay(){inputDisplay.value = '';}
@@ -36,16 +37,18 @@ clearBtn.addEventListener('click',clear);
 window.onload = clear;
 
 function appendToDisplay(){
-    if(event.target.id==='decBtn'){ //add dec point only if
-        if(inputDisplay.value.indexOf('.') === -1){ //dec point doesn't exist
+    if(inputDisplay.value.length <= inputMaxLength){ //check max length
+        if(event.target.id==='decBtn'){ //add dec point only if
+            if(inputDisplay.value.indexOf('.') === -1){ //dec point doesn't exist
+                inputDisplay.value += event.target.value;
+            }
+        }
+        else if(event.target.id==='btn0'){ //skip leading zeroes if display is '0'
+            if(inputDisplay.value !== '0') {inputDisplay.value += event.target.value;}
+        }
+        else{
             inputDisplay.value += event.target.value;
         }
-    }
-    else if(event.target.id==='btn0'){ //skip leading zeroes if display is '0'
-        if(inputDisplay.value !== '0') {inputDisplay.value += event.target.value;}
-    }
-    else{
-        inputDisplay.value += event.target.value;
     }
 }
 
