@@ -86,34 +86,6 @@ function changeSign(){
 const changeSignBtn = document.querySelector('#changeSignBtn');
 changeSignBtn.addEventListener('click',changeSign);
 
-//basic operation funcs
-function add(a,b){return a+b;}
-
-function subtract(a,b){return a-b;}
-
-function multiply(a,b){return a*b;}
-
-function divide(a,b){return b === 0 ? 'DIVIDE BY 0 !?' : a/b;}
-
-function operate(a,b,operator){
-    switch(operator){
-        case '+':
-            return add(a,b);
-            break;
-        case '-':
-            return subtract(a,b);
-            break;
-        case '*':
-            return multiply(a,b);
-            break;
-        case '/':
-            return divide(a,b);
-            break;
-        default:break;
-    }
-}
-//*************************************************************
-
 function operatorBtnClicked(event){
     //only add operator to resultStr if
     //last char of resultStr is a number
