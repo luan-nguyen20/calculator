@@ -90,8 +90,8 @@ function appendToDisplay(event){
             input.value += event.target.value;
         }
     }
-    else if(event.target.id==='btn0'){ //skip leading zeroes if display is empty
-        if(input.value !== '') {input.value += event.target.value;}
+    else if(event.target.id==='btn0'){ //skip leading zeroes if display is '0'
+        if(input.value !== '0') {input.value += event.target.value;}
     }
     else{
         input.value += event.target.value;
@@ -140,6 +140,24 @@ function subtract(a,b){return a-b;}
 function multiply(a,b){return a*b;}
 
 function divide(a,b){return b === 0 ? 'DIVIDE BY 0 !?' : a/b;}
+
+function operate(a,b,operator){
+    switch(operator){
+        case '+':
+            return add(a,b);
+            break;
+        case '-':
+            return subtract(a,b);
+            break;
+        case '*':
+            return multiply(a,b);
+            break;
+        case '/':
+            return divide(a,b);
+            break;
+        default:break;
+    }
+}
 //*************************************************************
 
 //func to show a value in input display screen
@@ -151,10 +169,12 @@ function displayResult(resultValue){resultTxt.textContent = 'Result: ' + resultV
 //func to check if display is empty
 function displayIsEmpty(){return input.value === '';}
 
-let leftOperand;
+function operatorBtnClicked(event){
+    let leftOperand, operator;
+    
+    operator = event.target.value;
 
-function addBtnClicked(){
-    operatorQueue.insert('+'); //insert operator to operator queue
+    operatorQueue.insert(operator); //insert operator to operator queue
 
     if(resultStack.isEmpty()){ 
         if(!displayIsEmpty()){ 
@@ -170,7 +190,7 @@ function addBtnClicked(){
             leftOperand = resultStack.pop(); 
             //do calc with top of result stack and input, 
             //then push result to top of result stack
-            resultStack.push(add(leftOperand,Number(input.value)));
+            resultStack.push(operate(leftOperand,Number(input.value),operator));
             //show latest result
             displayResult(resultStack.peek().toString());
             //clear display screen
@@ -180,33 +200,41 @@ function addBtnClicked(){
         }
         else { //if result stack is not empty and display is empty
             //insert operator in operator queue
-            operatorQueue.insert('+');
+            operatorQueue.insert(operator);
         }
     }
 }
 
-//addBtn event listener
+//operatorBtns event listeners
+const opBtns = document.querySelectorAll('.operatorBtn');
+opBtns.forEach(opBtn => opBtn.addEventListener('click',operatorBtnClicked));
+
 const addBtn = document.querySelector('#addBtn');
-addBtn.addEventListener('click',addBtnClicked);
+const subBtn = document.querySelector('#subBtn');
+const multBtn = document.querySelector('#multBtn');
+const divBtn = document.querySelector('#divBtn');
 
 function equalBtnClicked(){
     if(!displayIsEmpty()){ //if display is not empty
         if(resultStack.isEmpty()){ //and result stack is empty
             //display input as result and clear display
             displayResult(input.value);
-            resultStack.push(Number(input.value));
+            //resultStack.push(Number(input.value));
             clearInputDisplay();
         }
         else{ //if both display and result stack are not empty
             switch(operatorQueue.remove()){
                 case '+':
-                    addBtnClicked();
+                    addBtn.click();
                     break;
                 case '-':
+                    subBtn.click();
                     break;
                 case '*':
+                    multBtn.click();
                     break;
                 case '/':
+                    divBtn.click();
                     break;
                 default:break;
             }
