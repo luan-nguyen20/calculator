@@ -6,7 +6,7 @@ html{
     border: 1px solid rgb(5, 5, 5);
     border-radius: 15px;
     position: absolute;
-    top: 50%;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
@@ -31,4 +31,45 @@ input[name="input"] {
     height: 30px;
     border: solid black 2px;
     border-radius: 15px;
+}
+
+button {
+    height: 60px;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #c4c4c4;
+    background-color: transparent;
+    font-size: 2rem;
+    color: #333;
+    background-image: linear-gradient(to bottom,transparent,transparent 50%,rgba(0,0,0,.04));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), inset 0 1px 0 0 rgba(255,255,255,.45), inset 0 -1px 0 0 rgba(255,255,255,.15), 0 1px 0 0 rgba(255,255,255,.15);
+    text-shadow: 0 1px rgba(255,255,255,.4);
+}
+
+button:hover {
+    background-color: #eaeaea;
+}
+
+.operatorBtn {
+    color: #0167ac;
+}
+
+#clearBtn {
+    background-color: #f0595f;
+    border-color: #ff0000;
+    color: #fff;
+}
+
+#clearBtn:hover {
+    background-color: #f17377;
+}
+
+#equalBtn {
+    background-color: #00ff00;
+    border-color: #00ff00;
+    color: #fff;
+}
+
+#equalBtn:hover {
+    background-color: #7afd7a;
 }
