@@ -10,6 +10,7 @@ html{
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
+    margin-top: 80px;
 }
 
 input[name="input"] {
@@ -27,8 +28,8 @@ input[name="input"] {
 
 #resultTxt{
     width: 100%;
-    font-size: 2rem;
-    height: 30px;
+    font-size: 3rem;
+    height: 50px;
     border: solid black 2px;
     border-radius: 15px;
 }
@@ -68,8 +69,35 @@ button:hover {
     background-color: #00ff00;
     border-color: #00ff00;
     color: #fff;
+    /*make equalBtn span from row 2 to row 6
+    by setting grid-row-start, grid-row-end and height:100% */
+    grid-row-start: 2;
+    grid-row-end: 6;
+    height: 100%;
+    /*span btn between col 4 and 5*/
+    grid-column-start: 4;
+    grid-column-end: 5;
+    /*shorthand:
+    grid-row: 2/6;
+    grid-column: 4/5;
+    or even shorter:
+    grid-area: 2/4/6/5;
+    */
 }
 
 #equalBtn:hover {
     background-color: #7afd7a;
+}
+
+.keys{
+    display: grid;
+    
+    padding: 5px 5px; /*outer gap*/
+
+    grid-template-columns: repeat(4,1fr); /*4 cols of equal width*/
+    
+    /*add space between buttons*/
+    grid-gap: 15px; /*short for grid-row-gap and grid-column-gap*/
+    /*1st num for row, 2nd num for column*/
+    /*if they're the same, can use only 1 num*/
 }
