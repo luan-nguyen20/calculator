@@ -40,7 +40,7 @@ class Queue{
     }
     remove(){ //remove front item
         if(this.isEmpty()) {return 'Queue empty';}
-        else {this.queueArr.shift();}
+        else {return this.queueArr.shift();}
     }
     front(){ //return front item without removing it
         if(this.isEmpty()) {return 'Queue empty';}
@@ -59,13 +59,18 @@ class Queue{
 let resultStack = new Stack(); // stack to store results
 let operatorQueue = new Queue(); // queue to store operators
 const input = document.querySelector('input');
+const resultTxt = document.querySelector('#resultTxt');
 
-//func to clear display ONLY
-function clearDisplay(){input.value = '';}
+//func to clear input display ONLY
+function clearInputDisplay(){input.value = '';}
+
+//func to clear result display ONLY
+function clearResultDisplay(){resultTxt.textContent='Result: ';}
 
 //clear func clears everything
 function clear(){
-    clearDisplay();
+    clearInputDisplay();
+    clearResultDisplay();
     while(!resultStack.isEmpty()) {resultStack.pop();}
     while(!operatorQueue.isEmpty()) {operatorQueue.remove();}
 }
@@ -80,22 +85,16 @@ window.onload = clear;
 
 //func to add numbers and decimal points to display
 function appendToDisplay(event){
-    if(!resultStack.isEmpty()){ //if result stack is not empty,
-        clearDisplay(); //clear display before appending input
-        input.value += event.target.value;
-    }
-    else{ //if result stack is empty
-        if(event.target.id==='decBtn'){ //add dec point only if
-            if(input.value.indexOf('.') === -1){ //dec point doesn't exist
-                input.value += event.target.value;
-            }
-        }
-        else if(event.target.id==='btn0'){ //skip leading zeroes if display is empty
-            if(input.value !== '') {input.value += event.target.value;}
-        }
-        else{
+    if(event.target.id==='decBtn'){ //add dec point only if
+        if(input.value.indexOf('.') === -1){ //dec point doesn't exist
             input.value += event.target.value;
         }
+    }
+    else if(event.target.id==='btn0'){ //skip leading zeroes if display is empty
+        if(input.value !== '') {input.value += event.target.value;}
+    }
+    else{
+        input.value += event.target.value;
     }
 }
 //*************************************************************
@@ -143,8 +142,11 @@ function multiply(a,b){return a*b;}
 function divide(a,b){return b === 0 ? 'DIVIDE BY 0 !?' : a/b;}
 //*************************************************************
 
-//func to show a value in display screen
+//func to show a value in input display screen
 function display(displayValue){input.value = displayValue;}
+
+//func to show a value in result display
+function displayResult(resultValue){resultTxt.textContent = 'Result: ' + resultValue;}
 
 //func to check if display is empty
 function displayIsEmpty(){return input.value === '';}
@@ -152,14 +154,14 @@ function displayIsEmpty(){return input.value === '';}
 let leftOperand;
 
 function addBtnClicked(){
-    operatorQueue.insert('+'); //insert + to operator queue
+    operatorQueue.insert('+'); //insert operator to operator queue
 
     if(resultStack.isEmpty()){ 
         if(!displayIsEmpty()){ 
-        //if result stack is empty and display is not empty
-        //push input on result stack and clear display
-        resultStack.push(Number(input.value));
-        clearDisplay();
+            //if result stack is empty and display is not empty
+            //push input on result stack and clear display
+            resultStack.push(Number(input.value));
+            clearInputDisplay();
         }
     }
     else{
@@ -169,8 +171,10 @@ function addBtnClicked(){
             //do calc with top of result stack and input, 
             //then push result to top of result stack
             resultStack.push(add(leftOperand,Number(input.value)));
-            //display latest result
-            display(resultStack.peek().toString());
+            //show latest result
+            displayResult(resultStack.peek().toString());
+            //clear display screen
+            clearInputDisplay();
             //remove operator from queue
             operatorQueue.remove();
         }
@@ -186,7 +190,34 @@ const addBtn = document.querySelector('#addBtn');
 addBtn.addEventListener('click',addBtnClicked);
 
 function equalBtnClicked(){
-
+    if(!displayIsEmpty()){ //if display is not empty
+        if(resultStack.isEmpty()){ //and result stack is empty
+            //display input as result and clear display
+            displayResult(input.value);
+            resultStack.push(Number(input.value));
+            clearInputDisplay();
+        }
+        else{ //if both display and result stack are not empty
+            switch(operatorQueue.remove()){
+                case '+':
+                    addBtnClicked();
+                    break;
+                case '-':
+                    break;
+                case '*':
+                    break;
+                case '/':
+                    break;
+                default:break;
+            }
+        }
+    }
+    else{ //if display is empty
+        if(!resultStack.isEmpty()){ //and result stack is not empty
+            //display the latest result
+            displayResult(resultStack.pop().toString());
+        }
+    }
 }
 
 //equalBtn event listener
