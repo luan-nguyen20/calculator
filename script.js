@@ -56,21 +56,35 @@ class Queue{
 }
 //***************************************************************
 
+let resultStr = ''; //str to store math expression
 let resultStack = new Stack(); // stack to store results
 let operatorQueue = new Queue(); // queue to store operators
-const input = document.querySelector('input');
-const resultTxt = document.querySelector('#resultTxt');
+const inputDisplay = document.querySelector('input');
+const resultDisplay = document.querySelector('#resultTxt');
+const numOnlyRegEx = /^\d+$/;
 
 //func to clear input display ONLY
-function clearInputDisplay(){input.value = '';}
+function clearInputDisplay(){inputDisplay.value = '';}
 
-//func to clear result display ONLY
-function clearResultDisplay(){resultTxt.textContent='Result: ';}
+//function to clear result string
+function clearResultStr(){
+    resultStr = '';
+    displayResult();
+}
+
+//func to check if input display is empty
+function displayIsEmpty(){return inputDisplay.value === '';}
+
+//func to check if result str is empty
+function resultStrIsEmpty(){return resultStr === '';}
+
+//func to show result in result display
+function displayResult(){resultDisplay.textContent = 'Result: ' + resultStr;}
 
 //clear func clears everything
 function clear(){
     clearInputDisplay();
-    clearResultDisplay();
+    clearResultStr();
     while(!resultStack.isEmpty()) {resultStack.pop();}
     while(!operatorQueue.isEmpty()) {operatorQueue.remove();}
 }
@@ -85,26 +99,30 @@ window.onload = clear;
 
 function appendToDisplay(){
     if(event.target.id==='decBtn'){ //add dec point only if
-        if(input.value.indexOf('.') === -1){ //dec point doesn't exist
-            input.value += event.target.value;
+        if(inputDisplay.value.indexOf('.') === -1){ //dec point doesn't exist
+            inputDisplay.value += event.target.value;
         }
     }
     else if(event.target.id==='btn0'){ //skip leading zeroes if display is '0'
-        if(input.value !== '0') {input.value += event.target.value;}
+        if(inputDisplay.value !== '0') {inputDisplay.value += event.target.value;}
     }
     else{
-        input.value += event.target.value;
+        inputDisplay.value += event.target.value;
     }
 }
 
-
+//numBtns event listener
 const numBtns = Array.from(document.querySelectorAll('.numBtn'));
 numBtns.forEach(numBtn => numBtn.addEventListener('click',appendToDisplay));
 
 //func to delete last input entry
 function back(){
     if(!displayIsEmpty()){ //if display is not empty
-        input.value = input.value.substring(0,input.value.length-1);
+        inputDisplay.value = inputDisplay.value.substring(0,inputDisplay.value.length-1);
+    }
+    else if(!resultStrIsEmpty()){ //else if result str is not empty
+        resultStr = resultStr.substring(0,resultStr.length-1);
+        displayResult();
     }
 }
 //*************************************************************
@@ -115,6 +133,14 @@ backBtn.addEventListener('click',back);
 
 //func to change between negative and positive
 function changeSign(){
+    //if charAt index 0 is not - , add - to front
+    //else, remove -
+    if(inputDisplay.value[0] !== '-'){
+        inputDisplay.value = '-' + inputDisplay.value;
+    }
+    else{
+        inputDisplay.value = inputDisplay.value.substring(1,inputDisplay.value.length);
+    }
 }
 //*************************************************************
 
@@ -150,17 +176,25 @@ function operate(a,b,operator){
 }
 //*************************************************************
 
-//func to show a value in input display screen
-function display(displayValue){input.value = displayValue;}
+function operatorBtnClicked(event){
+    //only add operator to resultStr if
+    //last char of resultStr is a number
+    //or if input display is not empty
+    if(numOnlyRegEx.test(resultStr.charAt(resultStr.length-1)) || !displayIsEmpty()){
+        //add input.value to resultStr
+        resultStr += inputDisplay.value + event.target.value;
+        //clear input display
+        clearInputDisplay();
+        //display resultStr in result display
+        displayResult();
+    }
+}
 
-//func to show a value in result display
-function displayResult(resultValue){resultTxt.textContent = 'Result: ' + resultValue;}
-
-//func to check if display is empty
-function displayIsEmpty(){return input.value === '';}
-
+//operatorBtns event listeners
 const opBtns = document.querySelectorAll('.operatorBtn');
+opBtns.forEach(opBtn => opBtn.addEventListener('click',operatorBtnClicked));
 
+//function for equal button
 function equalBtnClicked(){
 }
 
