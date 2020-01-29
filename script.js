@@ -113,11 +113,9 @@ function equalBtnClicked(){
     resultStr += inputDisplay.value;
     //if last char of result str is not a number
     //delete last char by calling back func
-    if(!numOnlyRegEx.test(resultStr.charAt(resultStr.length-1))){
-        back();
-    }
-    //eval resultStr and assign to resultStr
-    resultStr = String(eval(resultStr));
+    if(!numOnlyRegEx.test(resultStr.charAt(resultStr.length-1))){back();}
+    //eval resultStr to 2 decimal places and assign to resultStr
+    resultStr = eval(resultStr).toFixed(2);
     //display result and clear input display
     displayResult();
     clearInputDisplay();
