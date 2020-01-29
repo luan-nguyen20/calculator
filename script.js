@@ -108,6 +108,11 @@ opBtns.forEach(opBtn => opBtn.addEventListener('click',operatorBtnClicked));
 function equalBtnClicked(){
     //add input display content to result str
     resultStr += inputDisplay.value;
+    //if last char of result str is not a number
+    //delete last char by calling back func
+    if(!numOnlyRegEx.test(resultStr.charAt(resultStr.length-1))){
+        back();
+    }
     //eval resultStr and assign to resultStr
     resultStr = String(eval(resultStr));
     //display result and clear input display

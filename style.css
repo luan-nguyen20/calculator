@@ -2,6 +2,33 @@ html{
     text-align: center;
 }
 
-input[name="input"]{
+.calcContainer{
+    border: 1px solid rgb(5, 5, 5);
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+}
+
+input[name="input"] {
+    width: 100%;
+    font-size: 5rem;
+    height: 80px;
+    border: none;
+    border-radius: 15px;
+    background-color: #6d90ee;
+    color: #fff;
     text-align: right;
+    padding-right: 20px;
+    padding-left: 10px;
+}
+
+#resultTxt{
+    width: 100%;
+    font-size: 2rem;
+    height: 30px;
+    border: solid black 2px;
+    border-radius: 15px;
 }
