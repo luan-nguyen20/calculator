@@ -10,7 +10,8 @@ html{
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    margin-top: 80px;
+    height: 530px;
+    margin-top: 50px;
 }
 
 input[name="input"] {
@@ -37,7 +38,7 @@ input[name="input"] {
 button {
     height: 60px;
     background-color: #fff;
-    border-radius: 3px;
+    border-radius: 15px;
     border: 1px solid #c4c4c4;
     background-color: transparent;
     font-size: 2rem;
@@ -52,7 +53,8 @@ button:hover {
 }
 
 .operatorBtn {
-    color: #0167ac;
+    color: #000000;
+    background-color: #6d90ee;
 }
 
 #clearBtn {
@@ -83,6 +85,7 @@ button:hover {
     or even shorter:
     grid-area: 2/4/6/5;
     */
+    font-size: 10rem;
 }
 
 #equalBtn:hover {
@@ -91,13 +94,14 @@ button:hover {
 
 .keys{
     display: grid;
+    height: 400px;
     
     padding: 5px 5px; /*outer gap*/
 
     grid-template-columns: repeat(4,1fr); /*4 cols of equal width*/
     
     /*add space between buttons*/
-    grid-gap: 15px; /*short for grid-row-gap and grid-column-gap*/
+    grid-gap: 1px 5px; /*short for grid-row-gap and grid-column-gap*/
     /*1st num for row, 2nd num for column*/
     /*if they're the same, can use only 1 num*/
 }
