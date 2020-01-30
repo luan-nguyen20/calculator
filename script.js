@@ -20,7 +20,7 @@ function displayIsEmpty(){return inputDisplay.value === '';}
 function resultStrIsEmpty(){return resultStr === '';}
 
 //func to show result in result display
-function displayResult(){resultDisplay.textContent = 'Result: ' + String(resultStr);}
+function displayResult(){resultDisplay.value = String(resultStr);}
 
 //clear func clears everything
 function clear(){
@@ -162,7 +162,8 @@ setInputFilter(inputDisplay, floatNumOnlyTest);
 
 function keyPressed(event){
     switch(event.code){
-        case 'KeyE':
+        case 'Numpad1':
+        case 'Digit1':
             console.log(e.code);
             break;
         default:break;
