@@ -13,7 +13,7 @@ header{
     border: 5px solid rgb(5, 5, 5);
     border-radius: 15px;
     position: absolute;
-    top: 30%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
