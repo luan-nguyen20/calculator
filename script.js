@@ -1,5 +1,5 @@
 let resultStr = ''; //str to store math expression
-const inputDisplay = document.querySelector('input');
+const inputDisplay = document.querySelector('#input');
 const resultDisplay = document.querySelector('#resultTxt');
 const numOnlyRegEx = /^\d+$/;
 let inputMaxLength = 10;
@@ -26,6 +26,7 @@ function displayResult(){resultDisplay.value = String(resultStr);}
 function clear(){
     clearInputDisplay();
     clearResultStr();
+    inputDisplay.focus();
 }
 //*************************************************************
 
@@ -102,10 +103,11 @@ function operatorBtnClicked(event){
         //display resultStr in result display
         displayResult();
     }
+    inputDisplay.focus();
 }
 
 //operatorBtns event listeners
-const opBtns = document.querySelectorAll('.operatorBtn');
+const opBtns = Array.from(document.querySelectorAll('.operatorBtn'));
 opBtns.forEach(opBtn => opBtn.addEventListener('click',operatorBtnClicked));
 
 //function for equal button
@@ -120,6 +122,7 @@ function equalBtnClicked(){
     //display result and clear input display
     displayResult();
     clearInputDisplay();
+    inputDisplay.focus();
 }
 
 //equalBtn event listener
@@ -137,12 +140,12 @@ function setInputFilter(input, inputFilter) {
             this.oldSelectionEnd = this.selectionEnd;
         } 
         else if (this.hasOwnProperty("oldValue")) {
-            //if test fails and input already has a value,
+            //if test fails and input already has an old value,
             //set value to its old value (no changes)
             this.value = this.oldValue;
             this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
         } 
-        else { //if test fails and input doesn't have a value,
+        else { //if test fails and input doesn't have an old value,
             this.value = ""; //set value to empty
         }
       });
@@ -160,17 +163,36 @@ function floatNumOnlyTest(valueToTest){
 //set the filter for inputDisplay
 setInputFilter(inputDisplay, floatNumOnlyTest);
 
-function keyPressed(event){
-    switch(event.code){
-        case 'Numpad1':
-        case 'Digit1':
-            console.log(e.code);
+//get operator btns from DOM
+const addBtn = document.querySelector('#addBtn');
+const subBtn = document.querySelector('#subBtn');
+const multBtn = document.querySelector('#multBtn');
+const divBtn = document.querySelector('#divBtn');
+
+//func to handle operator key presses
+function opKeyPressed(event){
+    switch(event.key){
+        case '+':
+            operatorBtnClicked(addBtn.click());
             break;
+        case '-':
+            operatorBtnClicked(subBtn.click());
+            break;
+        case '*':
+            operatorBtnClicked(multBtn.click());
+            break;
+        case '/':
+            operatorBtnClicked(divBtn.click());
+            break;
+        case '=':
+        case 'Enter':
+            equalBtnClicked();
         default:break;
     }
 }
 
-window.addEventListener('keydown',keyPressed);
+//operator key presses event listener
+window.addEventListener('keydown',opKeyPressed);
 
 
 
