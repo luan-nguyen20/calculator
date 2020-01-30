@@ -160,6 +160,17 @@ function floatNumOnlyTest(valueToTest){
 //set the filter for inputDisplay
 setInputFilter(inputDisplay, floatNumOnlyTest);
 
+function keyPressed(event){
+    switch(event.code){
+        case 'KeyE':
+            console.log(e.code);
+            break;
+        default:break;
+    }
+}
+
+window.addEventListener('keydown',keyPressed);
+
 
 
 
