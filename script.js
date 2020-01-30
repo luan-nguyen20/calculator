@@ -36,6 +36,7 @@ clearBtn.addEventListener('click',clear);
 //call clear upon page loads
 window.onload = clear;
 
+//func to append a clicked btn to inputDisplay
 function appendToDisplay(){
     if(inputDisplay.value.length <= inputMaxLength){ //check max length
         if(event.target.id==='decBtn'){ //add dec point only if
@@ -124,6 +125,40 @@ function equalBtnClicked(){
 //equalBtn event listener
 const equalBtn = document.querySelector('#equalBtn');
 equalBtn.addEventListener('click',equalBtnClicked);
+
+//func to validate input for inputDisplay according to the inputFilter.
+function setInputFilter(input, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+      input.addEventListener(event, function() {
+        if (inputFilter(this.value)) { //if inputFilter test succeeds
+            //set input value to new value
+            this.oldValue = this.value;
+            this.oldSelectionStart = this.selectionStart;
+            this.oldSelectionEnd = this.selectionEnd;
+        } 
+        else if (this.hasOwnProperty("oldValue")) {
+            //if test fails and input already has a value,
+            //set value to its old value (no changes)
+            this.value = this.oldValue;
+            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+        } 
+        else { //if test fails and input doesn't have a value,
+            this.value = ""; //set value to empty
+        }
+      });
+    });
+}
+
+//regex to test float numbers (using . as decimal point)
+const floatNumOnlyRegEx = /^-?\d*[.]?\d*$/;
+
+//func to check if a value has only float numbers
+function floatNumOnlyTest(valueToTest){
+    return floatNumOnlyRegEx.test(valueToTest);
+}
+
+//set the filter for inputDisplay
+setInputFilter(inputDisplay, floatNumOnlyTest);
 
 
 
