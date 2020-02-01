@@ -91,11 +91,12 @@ function changeSign(){
 const changeSignBtn = document.querySelector('#changeSignBtn');
 changeSignBtn.addEventListener('click',changeSign);
 
+//func to add operator to result str
 function operatorBtnClicked(event){
     //only add operator to resultStr if
     //last char of resultStr is a number
-    //or if input display is not empty
-    if(numOnlyRegEx.test(resultStr.charAt(resultStr.length-1)) || !displayIsEmpty()){
+    //or if input display is not empty and display is not '-'
+    if(numOnlyRegEx.test(resultStr.charAt(resultStr.length-1)) || (!displayIsEmpty() && inputDisplay.value !== '-')){
         //add input.value to resultStr
         resultStr += inputDisplay.value + event.target.value;
         //clear input display
@@ -105,6 +106,7 @@ function operatorBtnClicked(event){
     }
     inputDisplay.focus();
 }
+//*************************************************************
 
 //operatorBtns event listeners
 const opBtns = Array.from(document.querySelectorAll('.operatorBtn'));
@@ -116,7 +118,9 @@ function equalBtnClicked(){
     resultStr += inputDisplay.value;
     //if last char of result str is not a number
     //delete last char by calling back func
-    if(!numOnlyRegEx.test(resultStr.charAt(resultStr.length-1))){back();}
+    while(!numOnlyRegEx.test(resultStr.charAt(resultStr.length-1))){back();}
+    //change '--' to '+'
+    resultStr = resultStr.replace('--','+');
     //eval resultStr to 2 decimal places and assign to resultStr
     resultStr = eval(resultStr).toFixed(2);
     //display result and clear input display
@@ -124,6 +128,7 @@ function equalBtnClicked(){
     clearInputDisplay();
     inputDisplay.focus();
 }
+//*************************************************************
 
 //equalBtn event listener
 const equalBtn = document.querySelector('#equalBtn');
@@ -133,7 +138,7 @@ equalBtn.addEventListener('click',equalBtnClicked);
 function setInputFilter(input, inputFilter) {
     ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
       input.addEventListener(event, function() {
-        if (inputFilter(this.value)) { //if inputFilter test succeeds
+        if (inputFilter(this.value) && this.value !== '-') { //if inputFilter test succeeds and input is not '-'
             //set input value to new value
             this.oldValue = this.value;
             this.oldSelectionStart = this.selectionStart;
@@ -146,6 +151,7 @@ function setInputFilter(input, inputFilter) {
       });
     });
 }
+//*************************************************************
 
 //regex to test float numbers (using . as decimal point)
 const floatNumOnlyRegEx = /^-?\d*[.]?\d*$/;
@@ -188,6 +194,7 @@ function opKeyPressed(event){
         default:break;
     }
 }
+//*************************************************************
 
 //operator key presses event listener
 window.addEventListener('keydown',opKeyPressed);
