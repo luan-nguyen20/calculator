@@ -4,6 +4,9 @@ const resultDisplay = document.querySelector('#resultTxt');
 const numOnlyRegEx = /^\d+$/;
 let inputMaxLength = 10;
 
+
+if(screen.width <= 1024) {inputDisplay.setAttribute('readonly',true);}
+
 //func to clear input display ONLY
 function clearInputDisplay(){inputDisplay.value = '';}
 
