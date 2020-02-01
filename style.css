@@ -1,6 +1,8 @@
 html{
     text-align: center;
-    background-color: burlywood;
+    background-color: burlywood; /*for browsers that don't support gradient*/
+    height: 100%;
+    background-image: linear-gradient(to right, burlywood , rgb(238, 238, 109));
 }
 
 header{
