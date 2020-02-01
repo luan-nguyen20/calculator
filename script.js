@@ -139,14 +139,9 @@ function setInputFilter(input, inputFilter) {
             this.oldSelectionStart = this.selectionStart;
             this.oldSelectionEnd = this.selectionEnd;
         } 
-        else if (this.hasOwnProperty("oldValue")) {
-            //if test fails and input already has an old value,
-            //set value to its old value (no changes)
-            this.value = this.oldValue;
-            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-        } 
-        else { //if test fails and input doesn't have an old value,
+        else { //if test fails
             this.value = ""; //set value to empty
+            //this will set inputDisplay to empty as soon as a test fails
         }
       });
     });
@@ -183,6 +178,9 @@ function opKeyPressed(event){
             break;
         case '/':
             operatorBtnClicked(divBtn.click());
+            break;
+        case 'Backspace':
+            back();
             break;
         case '=':
         case 'Enter':
