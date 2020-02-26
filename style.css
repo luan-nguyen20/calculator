@@ -153,9 +153,9 @@ footer{
 
 /* Smartphones ----------- */
 @media only screen
-and (min-width : 320px)
-and (max-width : 414px) {
-/* STYLES GO HERE */
+and (min-device-width : 320px)
+and (max-device-width : 414px) {
+/* STYLES GO HERE 
     header{
         margin-top:20px;
     }
@@ -163,6 +163,7 @@ and (max-width : 414px) {
         width: 350px;
         top:40%;
     }
+*/
 }
 
 /* iPads (portrait and landscape) ----------- */
