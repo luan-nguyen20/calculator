@@ -155,7 +155,6 @@ footer{
 @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 414px) {
-/* STYLES GO HERE 
     header{
         margin-top:20px;
     }
@@ -163,12 +162,17 @@ and (max-device-width : 414px) {
         width: 350px;
         top:40%;
     }
-*/
+
 }
 
-/* iPads (portrait and landscape) ----------- */
+/* iPhone5 (portrait) ----------- */
 @media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px) {
-/* STYLES GO HERE */
+and (device-height : 568px) {
+    .calcContainer{
+        width:95%;
+    }
+
+    header{
+        font-size: 2rem;
+    }
 }

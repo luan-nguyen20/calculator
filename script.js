@@ -206,3 +206,33 @@ window.addEventListener('keydown',opKeyPressed);
 
 
 
+function binToDecConvert(binStr){
+    let decNum = 0;
+    let decNumDigits = [];
+    let binNumDigits = binStr.split('').reverse(); //rightmost digit in front of array
+
+    binNumDigits.forEach((digit,index) => {
+        decNum += (digit * (2**index));
+    });
+
+    return decNum;
+
+
+
+    // for (int i = 0; i < binNum.Length; i++)
+    // {
+    //     decNumDigits.push(double.Parse(binNum[i].ToString()));
+    // }
+
+    // for (int i = 0; i < binNum.Length; i++) {
+    //     decNum += decNumDigits.pop() * (double)Math.Pow(2,i); 
+    // }
+    // return decNum.ToString();
+}
+
+console.log(binToDecConvert("0011010"));
+
+
+
+
+
